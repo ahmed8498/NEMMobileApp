@@ -43,6 +43,7 @@ public class DBHandler extends SQLiteOpenHelper{
                "carModel text not null, " +
                "pricePerDay real not null," +
                "isTaken integer not null, " +
+               "image text not null,"+
                "username text," +
                "constraint fk_1 foreign key (username)  references mUsers(username)" +
                ")";
@@ -58,6 +59,22 @@ public class DBHandler extends SQLiteOpenHelper{
         db.execSQL(createQuery2);
         db.execSQL(createQuery3);
         System.out.println("On create");
+
+
+        String insertCar = "INSERT INTO Car(CarBrand,CarModel,PricePerDay,isTaken,image) VALUES ('Toyota','Corolla',500,0,'https://bit.ly/2HtGCK9')";
+        db.execSQL(insertCar);
+        insertCar = "INSERT INTO Car(CarBrand,CarModel,PricePerDay,isTaken,image) VALUES ('Mercedez','Bendz',500,0,'https://bit.ly/2TX6C6b')";
+        db.execSQL(insertCar);
+        insertCar = "INSERT INTO Car(CarBrand,CarModel,PricePerDay,isTaken,image) VALUES ('Toyota','FG Cruiser',800,0,'https://bit.ly/2TXqTcQ')";
+        db.execSQL(insertCar);
+
+
+        String insertTour = "INSERT INTO LeisureTour(tourName,tourLocation,tourTotalTickets,ticketPrice) VALUES ('Safari desert','Dubai',50,150)";
+        db.execSQL(insertTour);
+
+
+         insertTour = "INSERT INTO LeisureTour(tourName,tourLocation,tourTotalTickets,ticketPrice) VALUES ('Bruno Mars Concert','Dubai',500,350)";
+        db.execSQL(insertTour);
 
     }
 
@@ -133,26 +150,27 @@ public class DBHandler extends SQLiteOpenHelper{
 //        return dbString;
 //    }
 
-//    public ArrayList<String> getTitlesArray()
-//    {
-//        ArrayList<String> titles = new ArrayList<String>();
-//        SQLiteDatabase db = getWritableDatabase();
-//        String query = "SELECT * FROM " + TABLE_VIDEOS + " WHERE 1 ;";
-//        Cursor c =  db.rawQuery(query,null);
-//        c.moveToFirst();
-//
-//        while(!c.isAfterLast())
-//        {
-//            if(c.getString(c.getColumnIndex("_title")) != null)
-//
-//            {
-//                titles.add(c.getString(c.getColumnIndex("_title")));
-//            }
-//
-//            c.moveToNext();
-//        }
-//        return titles;
-//    }
+    public ArrayList<Car> getCarsArray()
+    {
+        ArrayList<Car> cars= new ArrayList<Car>();
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT * FROM " + "Car" + " WHERE isTaken = 0 ;";
+        Cursor c =  db.rawQuery(query,null);
+        c.moveToFirst();
+
+        while(!c.isAfterLast())
+        {
+
+           Car temp = new Car(c.getInt(0),c.getString(1),c.getString(2),c.getDouble(3),c.getInt(4),c.getString(5));
+
+
+                cars.add(temp);
+
+
+            c.moveToNext();
+        }
+        return cars;
+    }
 //    public ArrayList<String> getUrlArray()
 //    {
 //        ArrayList<String> url = new ArrayList<String>();

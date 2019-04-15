@@ -47,7 +47,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             myViewHolder.button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   // mContext.startActivity(new Intent(mContext.getApplicationContext(), CarDate.class));
+                    mContext.startActivity(new Intent(mContext.getApplicationContext(), CarList.class));
                 }
             });
         }

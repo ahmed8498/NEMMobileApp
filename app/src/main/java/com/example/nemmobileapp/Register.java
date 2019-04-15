@@ -42,6 +42,6 @@ public class Register extends AppCompatActivity {
         String wallet = waInput.getText().toString();
         dbHandler.addUser(username,firstName,lastName,wallet,email);
 
-        
+
     }
 }

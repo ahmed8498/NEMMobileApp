@@ -28,6 +28,8 @@ public class ServicesList extends AppCompatActivity {
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        
+
     }
 
 }
