@@ -49,12 +49,13 @@ public class DBHandler extends SQLiteOpenHelper{
                ")";
 
        String createQuery3 = "CREATE TABLE LeisureTour( " +
-               "tourID integer  primary key autoincrement , \n" +
-               "tourName text, \n" +
-               "tourLocation integer not null, \n" +
-               "tourTotalTickets integer not null,\n" +
-               "ticketPrice real not null\n" +
-               ")";
+               "tourID integer  primary key autoincrement , " +
+               "tourName text, " +
+               "tourLocation text not null, " +
+               "tourTotalTickets integer not null," +
+               "ticketPrice real not null," +
+               "image text not null"+
+        ")";
         db.execSQL(createQuery1);
         db.execSQL(createQuery2);
         db.execSQL(createQuery3);
@@ -69,11 +70,14 @@ public class DBHandler extends SQLiteOpenHelper{
         db.execSQL(insertCar);
 
 
-        String insertTour = "INSERT INTO LeisureTour(tourName,tourLocation,tourTotalTickets,ticketPrice) VALUES ('Safari desert','Dubai',50,150)";
+        String insertTour = "INSERT INTO LeisureTour(tourName,tourLocation,tourTotalTickets,ticketPrice,image) VALUES ('Safari desert','Dubai',50,150,'https://bit.ly/2Dhk4Iy')";
         db.execSQL(insertTour);
 
 
-         insertTour = "INSERT INTO LeisureTour(tourName,tourLocation,tourTotalTickets,ticketPrice) VALUES ('Bruno Mars Concert','Dubai',500,350)";
+         insertTour = "INSERT INTO LeisureTour(tourName,tourLocation,tourTotalTickets,ticketPrice,image) VALUES ('Bruno Mars Concert','Dubai',500,350,'https://bit.ly/2ZhoVTN')";
+        db.execSQL(insertTour);
+
+        insertTour = "INSERT INTO LeisureTour(tourName,tourLocation,tourTotalTickets,ticketPrice,image) VALUES ('Scuba diving','Ras Al Khaimah',100,25,'https://bit.ly/2CrnwAc')";
         db.execSQL(insertTour);
 
     }
@@ -86,8 +90,8 @@ public class DBHandler extends SQLiteOpenHelper{
 
     public void addUser(String username,String firstName,String lastName,String walledAddress,String email)
     {
-       String query = "INSERT INTO mUsers values("+
-       username + "," + firstName + ", " + lastName + ", " + walledAddress + ", " + email+ ");";
+       String query = "INSERT INTO mUsers values('" +
+       username + "','" + firstName + "', '" + lastName + "', '" + walledAddress + "', '" + email+ "');";
         Log.e("TEST", "addUser: in here");
        SQLiteDatabase db = getWritableDatabase();
        db.execSQL(query);
@@ -169,26 +173,64 @@ public class DBHandler extends SQLiteOpenHelper{
 
             c.moveToNext();
         }
+        c.close();
+        db.close();
         return cars;
     }
-//    public ArrayList<String> getUrlArray()
-//    {
-//        ArrayList<String> url = new ArrayList<String>();
-//        SQLiteDatabase db = getWritableDatabase();
-//        String query = "SELECT * FROM " + TABLE_VIDEOS + " WHERE 1 ;";
-//        Cursor c =  db.rawQuery(query,null);
-//        c.moveToFirst();
-//
-//        while(!c.isAfterLast())
-//        {
-//            if(c.getString(c.getColumnIndex("_url")) != null)
-//
-//            {
-//                url.add(c.getString(c.getColumnIndex("_url")));
-//            }
-//
-//            c.moveToNext();
-//        }
-//        return url;
-//    }
+
+    public ArrayList<Tour> getToursArray()
+    {
+        ArrayList<Tour> tours= new ArrayList<Tour>();
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT * FROM " + "LeisureTour" +" where tourTotalTickets > 0"+ ";";
+        Cursor c =  db.rawQuery(query,null);
+        c.moveToFirst();
+
+        while(!c.isAfterLast())
+        {
+
+            Tour temp = new Tour(c.getInt(0),c.getString(1),c.getString(2),c.getInt(3),c.getDouble(4),c.getString(5));
+
+
+            tours.add(temp);
+
+
+            c.moveToNext();
+        }
+        c.close();
+        db.close();
+        return tours;
+    }
+
+
+    public boolean validUser(String walletAddress)
+    {
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT * FROM " + "mUsers" + ";";
+        Cursor c =  db.rawQuery(query,null);
+        c.moveToFirst();
+        boolean valid = false;
+
+        while(!c.isAfterLast())
+        {
+            if(c.getString(3).equals(walletAddress))
+                valid = true;
+
+            c.moveToNext();
+        }
+c.close();
+        db.close();
+        return valid;
+    }
+
+
+    public void reserveCar(int mycarID)
+    {
+        SQLiteDatabase db = getWritableDatabase();
+        String update = "UPDATE Car set isTaken = 1 where carID =  " + mycarID+ ";";
+        db.execSQL(update);
+        db.close();
+
+    }
+
 }

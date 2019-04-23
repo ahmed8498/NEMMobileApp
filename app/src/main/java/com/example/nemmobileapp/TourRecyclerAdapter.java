@@ -1,13 +1,10 @@
 package com.example.nemmobileapp;
 
-
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,60 +15,52 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.List;
 
-public class CarRecyclerAdapter extends RecyclerView.Adapter<CarRecyclerAdapter.MyViewHolder> {
+public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapter.MyViewHolder>{
 
 
     private Context mContext;
-    private List<Car> mData;
+    private List<Tour> mData;
 
-    public CarRecyclerAdapter(Context mContext, List<Car> mData) {
+    public TourRecyclerAdapter(Context mContext, List<Tour> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public TourRecyclerAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         LayoutInflater mInflater = LayoutInflater.from(mContext);
-        View view = mInflater.inflate(R.layout.cardview_item_car,viewGroup,false);
-        return new MyViewHolder(view);
+        View view = mInflater.inflate(R.layout.cardview_item_tour,viewGroup,false);
+        return new TourRecyclerAdapter.MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
+    public void onBindViewHolder(@NonNull TourRecyclerAdapter.MyViewHolder myViewHolder, int i) {
 
-        myViewHolder.carBrand.setText(mData.get(i).getBrand());
+        myViewHolder.tourTitle.setText(mData.get(i).getTourName());
         // myViewHolder.carAgency.setText("Agency");
-        myViewHolder.carPrice.setText("Price per day: " + String.valueOf(mData.get(i).getPricePerDay()));
+        myViewHolder.tourPrice.setText("Ticket price: " + String.valueOf(mData.get(i).getTicketPrice()));
         //myViewHolder.carImage.setImageResource(mData.get(i).getImage());
 
         Glide.with(mContext)
-                .load(mData.get(i).getImageURL())
-                .into(myViewHolder.carImage);
+                .load(mData.get(i).getImage())
+                .into(myViewHolder.tourImage);
 
-        final int id = (i+1);
-        myViewHolder.carButton.setOnClickListener(new View.OnClickListener() {
+        myViewHolder.tourButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(mContext)
                         .setTitle("Confirm payment")
-                        .setMessage("Are you sure you want to rent this car?")
+                        .setMessage("Are you sure you want to book a ticket in this tour?")
 
                         // Specifying a listener allows you to take an action before dismissing the dialog.
                         // The dialog is automatically dismissed when a dialog button is clicked.
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                DBHandler db = new DBHandler(mContext,1);
-                                db.reserveCar(id);
-                                Toast.makeText(mContext,"Payment done",Toast.LENGTH_LONG).show();
-                                ((Activity)mContext).finish();
+                                Toast.makeText(mContext,"Ticket booked",Toast.LENGTH_LONG).show();
                             }
                         })
 
@@ -93,32 +82,24 @@ public class CarRecyclerAdapter extends RecyclerView.Adapter<CarRecyclerAdapter.
     public static class MyViewHolder extends RecyclerView.ViewHolder
     {
 
-        TextView carBrand;
-        // TextView carAgency;
-        TextView carPrice;
-        ImageView carImage;
-        Button carButton;
+        TextView tourTitle;
+        TextView tourPrice;
+        ImageView tourImage;
+        Button tourButton;
 
         public MyViewHolder(View itemView)
         {
             super(itemView);
 
-            carBrand = (TextView) itemView.findViewById(R.id.car_brand);
+            tourTitle = (TextView) itemView.findViewById(R.id.tour_title);
 
             //carAgency = (TextView) itemView.findViewById(R.id.car_agency);
 
-            carPrice = (TextView) itemView.findViewById(R.id.car_price);
+            tourPrice = (TextView) itemView.findViewById(R.id.tour_price);
 
-            carImage = (ImageView) itemView.findViewById(R.id.car_image);
+            tourImage= (ImageView) itemView.findViewById(R.id.tour_image);
 
-            carButton = (Button) itemView.findViewById(R.id.card_button);
+            tourButton = (Button) itemView.findViewById(R.id.tour_button);
         }
     }
-
-    public void filterCars(ArrayList<Car> list)
-    {
-        this.mData = list;
-        notifyDataSetChanged();
-    }
 }
-

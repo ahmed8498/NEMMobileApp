@@ -8,32 +8,30 @@ import android.widget.EditText;
 
 import java.util.ArrayList;
 
-public class CarList extends AppCompatActivity {
+public class TourList extends AppCompatActivity {
 
-
-    private ArrayList<Car> listOfCars;
+    private ArrayList<Tour> listofTours;
 
     private RecyclerView rv;
-    private EditText searchBar;
-    private CarRecyclerAdapter carRecyclerAdapter;
+    private TourRecyclerAdapter tourRecyclerAdapter;
     DBHandler db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_car_list);
+        setContentView(R.layout.activity_tour_list);
 
         db = new DBHandler(this,1);
-        listOfCars = new ArrayList<>();
+        listofTours = new ArrayList<>();
 
 
-        listOfCars = db.getCarsArray();
+        listofTours = db.getToursArray();
 
 
 
-        rv = (RecyclerView) findViewById(R.id.recycler_cars_list);
-        carRecyclerAdapter = new CarRecyclerAdapter(this, listOfCars);
+        rv = (RecyclerView) findViewById(R.id.recycler_tours_list);
+        tourRecyclerAdapter = new TourRecyclerAdapter(this, listofTours);
         rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        rv.setAdapter(carRecyclerAdapter);
+        rv.setAdapter(tourRecyclerAdapter);
 
     }
 }

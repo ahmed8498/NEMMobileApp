@@ -51,6 +51,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
                 }
             });
         }
+        else if(mData.get(i).getTitle().equals("Book leisure tours"))
+        {
+            myViewHolder.button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mContext.startActivity(new Intent(mContext.getApplicationContext(), TourList.class));
+                }
+            });
+        }
     }
 
 

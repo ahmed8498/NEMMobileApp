@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,10 +36,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void loginClicked(View view) {
 
+
         address = nemAddressInput.getText().toString();
         name = nameInput.getText().toString();
 
-        startActivity(new Intent(getApplicationContext(),ServicesList.class));
+        if(address.equals(""))
+            address = "";
+        if(db.validUser(address))
+            startActivity(new Intent(getApplicationContext(),ServicesList.class));
+        else
+            Toast.makeText(this,"Not a valid wallet address",Toast.LENGTH_LONG).show();
     }
 
     public void signUpClicked(View view) {

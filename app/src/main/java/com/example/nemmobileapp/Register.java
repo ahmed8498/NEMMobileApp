@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class Register extends AppCompatActivity {
 
@@ -40,8 +41,16 @@ public class Register extends AppCompatActivity {
         String lastName = lnInput.getText().toString();
         String email = emInput.getText().toString();
         String wallet = waInput.getText().toString();
-        dbHandler.addUser(username,firstName,lastName,wallet,email);
 
+        if(wallet.equals(""))
+        {
+            waInput.setError("Please enter your wallet address");
+        }
+        else {
+            dbHandler.addUser(username, firstName, lastName, wallet, email);
 
+            Toast.makeText(this, "Account created successfully", Toast.LENGTH_LONG).show();
+            finish();
+        }
     }
 }

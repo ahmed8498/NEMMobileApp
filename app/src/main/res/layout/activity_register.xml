@@ -96,13 +96,13 @@
 
     <EditText
         android:id="@+id/usernameInput"
-        android:layout_width="wrap_content"
+        android:layout_width="209dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="175dp"
         android:layout_marginLeft="175dp"
         android:layout_marginTop="250dp"
         android:backgroundTint="@color/colorPrimary"
-        android:ems="10"
+        android:ems="8"
         android:inputType="textPersonName"
         android:textColor="@color/colorPrimary"
         android:textSize="24sp"
@@ -112,12 +112,12 @@
 
     <EditText
         android:id="@+id/fnInput"
-        android:layout_width="wrap_content"
+        android:layout_width="209dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="175dp"
         android:layout_marginLeft="175dp"
         android:backgroundTint="@color/colorPrimary"
-        android:ems="10"
+        android:ems="8"
         android:inputType="textPersonName"
         android:textColor="@color/colorPrimary"
         android:textSize="24sp"
@@ -127,12 +127,12 @@
 
     <EditText
         android:id="@+id/lnInput"
-        android:layout_width="wrap_content"
+        android:layout_width="209dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="175dp"
         android:layout_marginLeft="175dp"
         android:backgroundTint="@color/colorPrimary"
-        android:ems="10"
+        android:ems="8"
         android:inputType="textPersonName"
         android:textColor="@color/colorPrimary"
         android:textSize="24sp"
@@ -142,12 +142,12 @@
 
     <EditText
         android:id="@+id/emailInput"
-        android:layout_width="wrap_content"
+        android:layout_width="211dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="175dp"
         android:layout_marginLeft="175dp"
         android:backgroundTint="@color/colorPrimary"
-        android:ems="10"
+        android:ems="8"
         android:inputType="textPersonName"
         android:textColor="@color/colorPrimary"
         android:textSize="24sp"
@@ -157,12 +157,12 @@
 
     <EditText
         android:id="@+id/walletInput"
-        android:layout_width="wrap_content"
+        android:layout_width="186dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:backgroundTint="@color/colorPrimary"
-        android:ems="10"
+        android:ems="7"
         android:inputType="textPersonName"
         android:textColor="@color/colorPrimary"
         android:textSize="24sp"
